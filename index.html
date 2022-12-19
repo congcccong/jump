@@ -104,7 +104,7 @@
       </div>
       <div class="option">
         <div class="option-clear"><button id="clearbutton">清除</button></div>
-        <div class="option-maxcounter"><span>统计个数</span> <input type="number" id="maxcount" value="8" /></div>
+        <div class="option-maxcounter"><span>统计个数</span> <input type="number" id="maxcount" /></div>
       </div>
     </div>
   </body>
@@ -112,6 +112,7 @@
     'use strict';
     class beatsTester {
       constructor() {
+        this.defaultMaxCount = 32;
         this.button = document.querySelector('#button');
         this.beatsButton = document.querySelector('#beatsbutton');
         this.beatsCounter = document.querySelector('#beatscounter');
@@ -121,12 +122,13 @@
         this.lastSpeed = parseInt(this.lastSpeedEle.textContent) || 0;
         this.averageSpeedEle = document.querySelector('#averageSpeed');
         this.averageSpeed = parseInt(this.averageSpeedEle.textContent) || 0;
-        this.counterMax = parseInt(this.maxCount.value) || 8; //默认最大计数是8
+        this.counterMax =  this.defaultMaxCount; 
         this.counter = 0;
         this.beatsArr = []; // 节拍数组
         this.clearFlag = false;
       }
       run() {
+        this.maxCount.value = this.defaultMaxCount = 32;
         // 轻击节拍的按钮绑定
         this.button.addEventListener('click', (event) => {
           this.counter++;
@@ -153,7 +155,7 @@
         });
         // 为平均速度设置最大计数个数
         this.maxCount.addEventListener('change', (event) => {
-          this.counterMax = parseInt(this.maxCount.value) || 8; //默认最大计数是8
+          this.counterMax = parseInt(this.maxCount.value) || this.defaultMaxCount;
         });
       }
       /*
