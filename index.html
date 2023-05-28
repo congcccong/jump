@@ -113,6 +113,7 @@
     class beatsTester {
       constructor() {
         this.defaultMaxCount = 32;
+        this.timeToSleep = 20000;
         this.button = document.querySelector('#button');
         this.beatsButton = document.querySelector('#beatsbutton');
         this.beatsCounter = document.querySelector('#beatscounter');
@@ -140,7 +141,7 @@
           clearTimeout(this.sleepId);
           this.sleepId = setTimeout(() => {
             this.beatsSleep();
-          }, 2000);
+          }, this.timeToSleep);
         });
         // 按空格也触发节拍计数操作
         document.addEventListener('keyup', (event) => {
