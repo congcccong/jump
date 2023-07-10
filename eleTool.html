@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>周期与频率换算</title>
+    <link rel="stylesheet" href="./lib/bootstrap.css" />
+    <style>
+      body {
+        width: 100vw;
+        height: 100vh;
+        background-color: #ccc;
+        box-sizing: border-box;
+      }
+      .main {
+        padding: 100px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="main">
+      周期与频率换算：<br /><br />
+      <form class="form-inline" action="" autocomplete="off">
+        <div class="form-group">
+          <label class="sr-only" for="exampleInputAmount"
+            >Amount (in dollars)</label
+          >
+          <div class="input-group">
+            <div class="input-group-addon">周期</div>
+            <input type="number" class="form-control" id="period" />
+            <div class="input-group-addon" id="timeUnitDispaly">ms</div>
+          </div>
+        </div>
+
+        <label class="radio-inline">
+          <input
+            type="radio"
+            name="timeUnit"
+            id="inlineRadio1"
+            value="ms"
+            checked
+            onchange="freqCal()"
+          />
+          ms
+        </label>
+        <label class="radio-inline">
+          <input
+            type="radio"
+            name="timeUnit"
+            id="inlineRadio3"
+            value="us"
+            onchange="freqCal()"
+          />
+          us
+        </label>
+        <label class="radio-inline">
+          <input
+            type="radio"
+            name="timeUnit"
+            id="inlineRadio2"
+            value="ns"
+            onchange="freqCal()"
+          />
+          ns
+        </label>
+
+        <!-- <button
+          class="btn btn-primary"
+          type="freqCalbutton"
+          onclick="freqCal()"
+        >
+          计算频率
+        </button> -->
+        <br /><br />
+        <div class="form-group">
+          <label class="sr-only" for="exampleInputAmount"
+            >Amount (in dollars)</label
+          >
+          <div class="input-group">
+            <div class="input-group-addon">频率</div>
+            <input type="text" class="form-control" id="freq" />
+            <div class="input-group-addon">Hz</div>
+          </div>
+          <!-- <button class="btn btn-primary" type="button">计算周期</button> -->
+        </div>
+      </form>
+    </div>
+  </body>
+  <script>
+    'use strict';
+    var periodInput = document.querySelector('#period');
+    var freqInput = document.querySelector('#freq');
+    var timeUnitDispaly = document.querySelector('#timeUnitDispaly');
+
+    periodInput.addEventListener('blur', (event) => {
+      freqCal();
+    });
+    periodInput.addEventListener('change', (event) => {
+      freqCal();
+    });
+
+    function freqCal() {
+      var timeUnitInput = document.querySelector("[name='timeUnit']:checked");
+      console.log(timeUnitInput.value);
+      timeUnitDispaly.innerHTML = timeUnitInput.value;
+      var periodNum = parseFloat(periodInput.value);
+      var freqNum = 1 / periodNum;
+      if (timeUnitInput.value == 'ms') {
+        freqNum *= 1000;
+      } else if (timeUnitInput.value == 'us') {
+        freqNum *= 1000000;
+      } else if (timeUnitInput.value == 'ns') {
+        freqNum *= 1000000000;
+      }
+      console.log(freqNum);
+      freqInput.value = new Intl.NumberFormat().format(freqNum);
+    }
+  </script>
+</html>
